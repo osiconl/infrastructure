@@ -1,4 +1,5 @@
 from fabric import task
+from invoke import run as local
 
 # Directories on the production server
 BLOG_DIR = "~/workspaces/osiconl/blog"
@@ -42,10 +43,9 @@ def add_commit_blog(c, message="Update blog"):
     Stages all changes, commits with a message and pushes to GitHub.
     Run with: fab add-commit-blog -m "My commit message"
     """
-    with c.cd(LOCAL_BLOG_DIR):
-        c.local("git add -A")
-        c.local(f'git commit -m "{message}"')
-        c.local("git push origin main")
+    local(f"cd {LOCAL_BLOG_DIR} && git add -A")
+    local(f'cd {LOCAL_BLOG_DIR} && git commit -m "{message}"')
+    local(f"cd {LOCAL_BLOG_DIR} && git push origin main")
 
 
 @task
@@ -55,10 +55,9 @@ def add_commit_osiconl(c, message="Update osiconl"):
     Stages all changes, commits with a message and pushes to GitHub.
     Run with: fab add-commit-osiconl -m "My commit message"
     """
-    with c.cd(LOCAL_OSICONL_DIR):
-        c.local("git add -A")
-        c.local(f'git commit -m "{message}"')
-        c.local("git push origin main")
+    local(f"cd {LOCAL_OSICONL_DIR} && git add -A")
+    local(f'cd {LOCAL_OSICONL_DIR} && git commit -m "{message}"')
+    local(f"cd {LOCAL_OSICONL_DIR} && git push origin main")
 
 
 @task
